@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Smart Element Copier",
+  "short_name": "Elem Copier",
+  "version": "6.0.0",
+  "description": "Export any element as Clean HTML, React JSX, Tailwind CSS, or Bootstrap 5. With @font-face capture, CSS variable resolution, copy history, and context menu.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "clipboardWrite",
+    "contextMenus",
+    "storage"
+  ],
+  "host_permissions": [],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Smart Element Copier (Alt+Shift+C)",
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "commands": {
+    "activate-picker": {
+      "suggested_key": {
+        "default": "Alt+Shift+C",
+        "mac":     "Alt+Shift+C"
+      },
+      "description": "Toggle element picker"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["core-engine.js"],
+      "matches":   ["<all_urls>"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

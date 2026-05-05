@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Element Copier</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+
+    <header class="header">
+      <div class="logo">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h1 class="title">Smart Element Copier</h1>
+        <span class="badge-version">v6</span>
+      </div>
+      <div class="header-spacer"></div>
+      <div class="stats-pill hidden" id="statsPill"><span id="statsText"></span></div>
+      <!-- History toggle -->
+      <button class="icon-btn" id="historyToggleBtn" title="Copy history">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="status-bar">
+      <span class="status-dot" id="statusDot"></span>
+      <span class="status-text" id="statusText">Ready</span>
+      <span class="status-hint" id="statusHint"></span>
+    </div>
+
+    <!-- ── Main Panel ── -->
+    <div id="mainPanel">
+
+      <!-- Mode selector -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-label">Output Format</span>
+        </div>
+
+        <div class="mode-row-label">HTML</div>
+        <div class="mode-grid" id="modeGrid">
+
+          <button class="mode-btn active" data-mode="html">
+            <div class="mode-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <span class="mode-label">Clean HTML</span>
+            <span class="mode-desc">Shared CSS</span>
+          </button>
+
+          <button class="mode-btn" data-mode="document">
+            <div class="mode-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <span class="mode-label">Document</span>
+            <span class="mode-desc">Standalone</span>
+          </button>
+
+          <button class="mode-btn" data-mode="jsx">
+            <div class="mode-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>
+            </div>
+            <span class="mode-label">React JSX</span>
+            <span class="mode-desc">Component</span>
+          </button>
+
+          <button class="mode-btn mode-text" data-mode="text">
+            <div class="mode-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            </div>
+            <span class="mode-label">Text Only</span>
+            <span class="mode-desc">Instant</span>
+          </button>
+
+        </div>
+
+        <div class="mode-row-label" style="margin-top:8px;">Frameworks</div>
+        <div class="mode-grid">
+
+          <button class="mode-btn mode-tailwind" data-mode="tailwind">
+            <div class="mode-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 3.5 7.5 5 12c1.5-3 4.5-4.5 6-3-2.314 2.314-3 5.5-1.5 8.5C5.5 21 2 18 2 12 2 6.48 6.48 2 12 2z"/><path d="M12 22c5.5 0 8.5-5.5 7-10-1.5 3-4.5 4.5-6 3 2.314-2.314 3-5.5 1.5-8.5C18.5 3 22 6 22 12c0 5.52-4.48 10-10 10z"/></svg>
+            </div>
+            <span class="mode-label">Tailwind</span>
+            <span class="mode-desc">CSS classes</span>
+          </button>
+
+          <button class="mode-btn mode-bootstrap" data-mode="bootstrap">
+            <div class="mode-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 17V7h5.5a3 3 0 0 1 0 6H7m5.5 0H7v4"/></svg>
+            </div>
+            <span class="mode-label">Bootstrap</span>
+            <span class="mode-desc">BS5 classes</span>
+          </button>
+
+          <button class="mode-btn mode-svg" data-mode="svg">
+            <div class="mode-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>
+            </div>
+            <span class="mode-label">SVG Code</span>
+            <span class="mode-desc">Clean SVG</span>
+          </button>
+
+          <div></div>
+
+        </div>
+      </section>
+
+      <!-- Options -->
+      <section class="section options-section">
+        <label class="toggle-row" id="bundleImagesToggle">
+          <div class="toggle-info">
+            <span class="toggle-label">Bundle images</span>
+            <span class="toggle-desc">Inline images as base64 (works offline)</span>
+          </div>
+          <div class="toggle" id="bundleToggle">
+            <div class="toggle-thumb"></div>
+          </div>
+        </label>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="section action-section">
+        <button class="action-btn" id="actionBtn">
+          <span class="action-icon" id="actionIcon"></span>
+          <span class="action-label" id="actionLabel">Start Selecting</span>
+        </button>
+      </section>
+
+      <div class="tip-bar">
+        <div class="tip active" id="tipIdle">
+          <kbd>Click</kbd> element &nbsp;·&nbsp; <kbd>Right-click</kbd> ancestors &nbsp;·&nbsp; <kbd>Alt+C</kbd> quick copy &nbsp;·&nbsp; <kbd>ESC</kbd> cancel
+        </div>
+        <div class="tip" id="tipSelecting">Hover to highlight · <kbd>Click</kbd> to copy · <kbd>Alt+C</kbd> instant · <kbd>Right-click</kbd> for parent</div>
+        <div class="tip tip-processing" id="tipProcessing">
+          <span class="spinner"></span> <span id="tipProcessingText">Extracting…</span>
+        </div>
+        <div class="tip tip-success hidden" id="tipSuccess"></div>
+        <div class="tip tip-error hidden" id="tipError"></div>
+      </div>
+
+      <footer class="footer">
+        <button class="footer-btn hidden" id="downloadBtn">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </button>
+        <div class="footer-spacer"></div>
+        <span class="footer-hint" id="footerHint"></span>
+        <span class="footer-hint" style="color:var(--text3);margin-left:6px;">Alt+Shift+C</span>
+      </footer>
+
+    </div><!-- /#mainPanel -->
+
+    <!-- ── History Panel ── -->
+    <div id="historyPanel" class="hidden">
+      <div class="history-header">
+        <span class="section-label">Recent Copies</span>
+        <button class="history-clear-btn" id="historyClearBtn">Clear all</button>
+      </div>
+      <div id="historyList" class="history-list">
+        <div class="history-empty" id="historyEmpty">No copies yet</div>
+      </div>
+    </div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
