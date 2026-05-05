@@ -3,7 +3,7 @@
   "name": "Smart Element Copier",
   "short_name": "Elem Copier",
   "version": "6.0.0",
-  "description": "Export any element as Clean HTML, React JSX, Tailwind CSS, or Bootstrap 5. With @font-face capture, CSS variable resolution, copy history, and context menu.",
+  "description": "Pick any element on any page and instantly copy it as clean HTML, React JSX, Tailwind CSS, or Bootstrap 5 — with scoped styles, fonts, animations, and hover effects included.",
   "permissions": [
     "activeTab",
     "scripting",
@@ -14,7 +14,7 @@
   "host_permissions": [],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Smart Element Copier (Alt+Shift+C)",
+    "default_title": "Smart Element Copier — click to pick an element",
     "default_icon": {
       "16":  "icons/icon16.png",
       "48":  "icons/icon48.png",
